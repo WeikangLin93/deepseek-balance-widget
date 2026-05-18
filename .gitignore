@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+last_balance.json
+widget_config.json
+*.log
+dist/
+build/
+
+.test_runtime/
+
+PUBLISH.txt
