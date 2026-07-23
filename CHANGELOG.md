@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Add privacy-friendly anonymous launch counting via Hits.
+- Document the opt-out environment variable for launch counting.
+
 ## 0.1.0
 
 - Initial release: desktop floating widget for DeepSeek API balance.

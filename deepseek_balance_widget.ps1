@@ -121,6 +121,20 @@ $script:pendingRestoreAt = $null
 $script:refreshJob = $null
 $script:nextRefreshAt = Get-Date
 $script:isRefreshing = $false
+$script:telemetryJob = $null
+
+function Start-LaunchTelemetry {
+  if ($env:DEEPSEEK_BALANCE_WIDGET_DISABLE_TELEMETRY -eq "1") { return }
+  if ($script:telemetryJob -and $script:telemetryJob.State -eq "Running") { return }
+
+  $telemetryUrl = "https://hits.sh/github.com/WeikangLin93/deepseek-balance-widget/app-launch.svg?label=launches"
+  $script:telemetryJob = Start-Job -ArgumentList $telemetryUrl -ScriptBlock {
+    param($url)
+    try {
+      Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 5 | Out-Null
+    } catch {}
+  }
+}
 
 function Set-LayerMode([string]$mode) {
   if ($mode -eq "topmost") {
@@ -509,10 +523,15 @@ $form.Add_FormClosing({
     try { Remove-Job -Job $script:refreshJob -Force -ErrorAction SilentlyContinue } catch {}
     $script:refreshJob = $null
   }
+  if ($script:telemetryJob) {
+    try { Remove-Job -Job $script:telemetryJob -Force -ErrorAction SilentlyContinue } catch {}
+    $script:telemetryJob = $null
+  }
   $notify.Visible = $false
   $notify.Dispose()
 })
 
+Start-LaunchTelemetry
 Start-BalanceRefresh
 Start-Sleep -Milliseconds 800
 Apply-VisibilityPolicy

@@ -16,6 +16,8 @@ The widget shows total balance in CNY (¥), with granted and topped-up breakdown
 
 ## Features / 功能特点
 
+- Anonymous launch counting via a public Hits endpoint, with no API key or balance data sent  
+  通过公开 Hits 端点进行匿名启动计数，不发送 API key 或余额数据
 - Displays total, granted, and topped-up DeepSeek balance in CNY  
   显示 DeepSeek 总余额、赠送余额和充值余额（人民币）
 - Auto-refreshes every 60 seconds  
@@ -36,6 +38,10 @@ The widget shows total balance in CNY (¥), with granted and topped-up breakdown
   自动读取 `~/.deepseek/config.toml` 中的 API key，无需额外配置
 - Stores runtime config/cache under `%LOCALAPPDATA%\DeepSeekBalanceWidget`  
   运行文件保存到 AppData，项目目录保持干净
+
+Anonymous launch counting requests `https://hits.sh/github.com/WeikangLin93/deepseek-balance-widget/app-launch.svg` once on startup. It does not send your API key, balance, account data, or local paths. To opt out, set `DEEPSEEK_BALANCE_WIDGET_DISABLE_TELEMETRY=1` before launching.
+
+匿名启动统计会在启动时请求一次 `https://hits.sh/github.com/WeikangLin93/deepseek-balance-widget/app-launch.svg`。它不会发送 API key、余额、账号信息或本机路径。若要关闭，启动前设置环境变量 `DEEPSEEK_BALANCE_WIDGET_DISABLE_TELEMETRY=1`。
 
 ---
 
